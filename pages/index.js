@@ -1,10 +1,11 @@
-import App from "./app";
-
-class index extends Comment{
-  state = {};
-  Home() {
-    return  <App />;
-  }
-}
+export default function Home() {
+  return(
+    <div>
+      <h1>
+        some text
+      </h1>
+    </div>
+  )
+}}
 
 export default index;
