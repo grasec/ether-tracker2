@@ -12,24 +12,15 @@ export default function Home() {
     return(
       <>
       <Head>
-        <title>Login | EtherTarcker</title>
+        <title> Login | EtherTarcker </title>
       </Head>
-      <Flex
-        direction="column"
-        justifyContent="center" 
-        alignItems="center"
-        width="100vw"
-        height="100vh"
-        bgGradient="linear(to-br, yellow.400, pink.300)">
+      <Flex direction="column" justifyContent="center" alignItems="center"
+        width="100vw" height="100vh"bgGradient="linear(to-br, yellow.400, pink.300)">
           <Text 
-            fontSize="5xl" 
-            fontWeight="bold" 
-            color="white">
+            fontSize="5xl" fontWeight="bold" color="white">
             EtherTracker</Text>
           <Button 
-            colorScheme="orange"
-            size="lg"
-            mt="6"
+            colorScheme="orange" size="lg" mt="6"
             onClick={() => authenticate({
               signingMessage: "Sign to Login to EtherTracker"
             })}>
@@ -43,12 +34,8 @@ export default function Home() {
     <Head>
       <title> EtherTracker </title>
     </Head>
-    <Flex
-      direction="column"
-      height="100vh"
-      weight="100vw"
-      >
-        <Header user={user} logout={logout} isLoggingOut={isLoggingOut}/>
+    <Flex direction="column" height="100vh" weight="100vw">
+      <Header user={user} logout={logout} isLoggingOut={isLoggingOut}/>
         <Box flex="1" px="40" py="20"
         bgGradient="linear(to-br, teal.400, yellow.400)">
           <Tabs size="lg" colorScheme="yellow"
@@ -62,7 +49,7 @@ export default function Home() {
                 <Profile user={user}/>
               </TabPanel>
               <TabPanel>
-                <Transactions />
+                <Transactions user={user} />
               </TabPanel>
             </TabPanels>
           </Tabs>
