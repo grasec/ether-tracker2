@@ -15,6 +15,7 @@
     "@walletconnect/web3-provider": "^1.7.8",
     "@web3auth/web3auth": "^1.1.0",
     "framer-motion": "^6.3.16",
+    "index.js": "0.0.3",
     "magic-sdk": "^8.1.1",
     "moralis": "^1.8.0",
     "next": "12.1.6",
