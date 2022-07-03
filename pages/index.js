@@ -1,9 +1,9 @@
 import { Box, Button, Flex, Tab, TabList, TabPanel, TabPanels, Tabs, Text} from "@chakra-ui/react"
 import Head from "next/head"
 import { useMoralis } from "react-moralis"
-import Header from "../components/Header"
-import Profile from "../components/Profile"
-import Transactions from "../components/Transactions"
+import Header from "../components/header"
+import Profile from "../components/profile"
+import Transactions from "../components/transactions"
 
 export default function Home() {
   //uncomment section bellow for login with metamask screen
