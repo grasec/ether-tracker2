@@ -6,6 +6,9 @@ import Profile from "../components/Profile"
 import Transactions from "../components/Transactions"
 
 export default function Home() {
+  //uncomment section bellow for login with metamask screen
+
+
   const {isAuthenticated, authenticate, user, logout, isLoggingOut} = useMoralis()
 
   if(!isAuthenticated) {
@@ -35,21 +38,25 @@ export default function Home() {
       <title> EtherTracker </title>
     </Head>
     <Flex direction="column" height="100vh" weight="100vw">
+      {/* header required for user info and logout button */}
       <Header user={user} logout={logout} isLoggingOut={isLoggingOut}/>
         <Box flex="1" px="40" py="20"
         bgGradient="linear(to-br, teal.400, yellow.400)">
           <Tabs size="lg" colorScheme="yellow"
           align="center" variant="enclosed">
             <TabList>
+              {/* Profile tab in the list */}
               <Tab fontWeight="bold">Profile</Tab>
               <Tab fontWeight="bold">Transactions</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>
+                {/* Profile tab UI *remove comment to add the tab* */}
                 <Profile user={user}/>
               </TabPanel>
               <TabPanel>
-                <Transactions user={user} />
+                {/* Transactions can pass user={user} for profile tab */}
+                <Transactions  />
               </TabPanel>
             </TabPanels>
           </Tabs>
