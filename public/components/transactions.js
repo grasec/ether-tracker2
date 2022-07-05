@@ -1,29 +1,44 @@
 import { useMoralisWeb3Api } from "react-moralis"
-import React,{ useEffect, useState } from "react";
+import React,{ useId, useEffect, useState } from "react";
 import MyContainer from "./myContainer";
-import { Button, Divider, Link, Text } from "@chakra-ui/react";
+import { Button, Divider, Link, Text, NumberInput,
+    NumberInputField,
+    NumberInputStepper,
+    NumberIncrementStepper,
+    NumberDecrementStepper,
+    Stack, } from "@chakra-ui/react";
 import { Moralis } from "moralis";
 
 
 export default function Transactions({user}){
 
     const Web3Api = useMoralisWeb3Api()
-    const BASE_URL = "https://rinkeby.etherscan.io/tx/"
+    const BASE_URL = process.env.NEXT_PUBLIC_Base_URL
     const [transactions, setTransactions] = useState([])
     const [block, setBlock] = useState([])
-    // next 4 comments tied to infura API
-    // const Web3 = require('Web3');
-    // const Project_ID_Infura = '9e6bb9bcb5e441a59379fc2c5d7c0f0d';
-    // const apiKey = 'https://rinkeby.infura.io/v3/' + Project_ID_Infura;
-    // const web3 = new Web3(new Web3.providers.HttpProvider(apiKey));
-    let listLimit = 5
+    // next 3 comments tied to infura API
+    const Web3 = require('Web3');
+    const apiKey = process.env.NEXT_PUBLIC_Infura_URL + process.env.NEXT_PUBLIC_Infura_ID;
+    const web3 = new Web3(new Web3.providers.HttpProvider(apiKey));
+
+    const selectNUM = useId();
+    const [input, setInput] = useState();
+
+    // number of Tx to display
+    var listLimit = input
     
     const fetchBlock = async () => {
-        // next 2 lines tied to infura API
-        //var latestBlock = await web3.eth.getBlockNumber()
-        //const blockData = await web3.eth.getBlock(10955978)
-        const options = { chain: "rinkeby", block_number_or_hash: 10955979};
+        //use one of the next options
+
+        //next 2 lines fetch latest block using Infura
+        var latestBlock = await web3.eth.getBlockNumber()
+        //const blockData = await web3.eth.getBlock(latestBlock)
+
+        // next 2 lines fetch by NUMBER using Moralis
+        const options = { chain: "rinkeby", block_number_or_hash: latestBlock};
         const blockData = await Web3Api.native.getBlock(options);
+
+
         if(blockData) {
             setBlock(blockData.result)
             console.log(blockData)
@@ -43,7 +58,21 @@ export default function Transactions({user}){
     return(
         <MyContainer>
             <Text fontSize="lg" fontWeight="bold">Latest transactions</Text>
-            {/* <Button colorScheme="teal" px="5" py="5" onClick={fetchBlock() }>refresh</Button> */}
+            <Stack shouldWrapChildren direction='row'>
+                <NumberInput size='xs' maxW={16} defaultValue={5} min={5} max={50}
+                id={selectNUM} value={input} onInput={e => setInput(e.target.value)}>
+                    <NumberInputField />
+                    <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                    </NumberInputStepper>
+                </NumberInput>
+                <Button colorScheme="teal" px="5" py="5" onClick={fetchBlock() }>refresh</Button>
+            </Stack>
+            
+            {/* <label htmlFor={id}>Please specify:</label> */}
+            {/* <input id={id} value={input} onInput={e => setInput(e.target.value)}/> */}
+            
             {/* <Button colorScheme="teal" onClick={handleRefresh()}>Reload</Button> */}
             {transactions && transactions.map(transaction => (
                 <div key={transaction.hash} >
