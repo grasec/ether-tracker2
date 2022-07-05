@@ -19,7 +19,7 @@ export default function Transactions({user}){
     let listLimit = 5
     
     const fetchBlock = async () => {
-        // next 2 comments tied to infura API
+        // next 2 lines tied to infura API
         //var latestBlock = await web3.eth.getBlockNumber()
         //const blockData = await web3.eth.getBlock(10955978)
         const options = { chain: "rinkeby", block_number_or_hash: 10955979};
